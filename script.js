@@ -1,5 +1,37 @@
 // Create an array to hold values
-let choices = ['rock', 'paper', 'scissors'];
+const choices = ['rock', 'paper', 'scissors'];
+const maxScore = 5;
+
+// Start game
+game();
+
+
+// Simulate a game
+function game() {
+    // Initialize variables
+    let userScore = 0;
+    let computerScore = 0;
+
+    // Loop over rounds while user and computer score are below the max score
+    for (let i = 0; userScore < maxScore && computerScore < maxScore; i++) {
+        // Obtain user input and account for case sensitivity
+        let playerSelection = prompt(`Select 'Rock' 'Paper' or Scissors`).toLowerCase();
+
+        // Obtain the round outcome
+        let computerSelection = getComputerChoice();
+        roundOutcome = playRound(playerSelection, computerSelection);
+        
+        // Tally and increment the round winner
+        if (roundOutcome !== 'Draw') {
+            roundOutcome === 'You Win' ? userScore++ : computerScore++;
+        }
+
+        // Log the round outcome
+        console.log(roundOutcome);
+    }
+    // Declare the winner depending on who reached it first
+    userScore === maxScore ? console.log(`Player wins ${userScore} to ${computerScore}!`) : console.log(`Computer wins ${computerScore} to ${userScore}!`)
+}
 
 
 // Obtain computer's choice
@@ -22,37 +54,13 @@ function playRound(playerSelection, computerSelection) {
 
     // Account for possible scenarios
     if (playerSelection === 'rock') {
-        if (computerSelection === 'paper') {
-            return 'You Lose';
-        }
-        else {
-            return 'You Win';
-        }
+        const result = computerSelection === 'paper' ? 'You Lose' : 'You Win';
+        return result
     } else if (playerSelection === 'paper') {
-        if (computerSelection === 'scissors') {
-            return 'You Lose';
-        }
-        else {
-            return 'You Win';
-        }
+        const result = computerSelection === 'scissors' ? 'You Lose' : 'You Win';
+        return result;
     } else {
-        if (computerSelection === 'rock') {
-            return 'You Lose';
-        }
-        else {
-            return 'You Win';
-        }
+        const result = computerSelection === 'rock' ? 'You Lose' : 'You Win';
+        return result
     }
 }
-
-
-// Simulate a game
-function game() {
-
-}
-
-// Account for case sensitivity
-const playerSelection = (prompt('select').toLowerCase());
-const computerSelection = getComputerChoice();
-
-console.log(playRound(playerSelection, computerSelection));
