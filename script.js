@@ -1,6 +1,6 @@
-// Create an array to hold values
-const choices = ["rock", "paper", "scissors"];
-const maxScore = 5;
+// Create const global array and max score
+const CHOICES = ["rock", "paper", "scissors"];
+const MAX_SCORE = 5;
 
 // Start game
 game();
@@ -12,7 +12,7 @@ function game() {
   let computerScore = 0;
 
   // Loop over rounds while user and computer score are below the max score
-  for (let i = 0; userScore < maxScore && computerScore < maxScore; i++) {
+  for (let i = 0; userScore < MAX_SCORE && computerScore < MAX_SCORE; i++) {
     // Obtain user input and account for case sensitivity
     let playerSelection = prompt(
       `Select 'Rock' 'Paper' or Scissors`
@@ -31,7 +31,7 @@ function game() {
     console.log(roundOutcome);
   }
   // Declare the winner depending on who reached it first
-  userScore === maxScore
+  userScore === MAX_SCORE
     ? console.log(`Player wins ${userScore} to ${computerScore}!`)
     : console.log(`Computer wins ${computerScore} to ${userScore}!`);
 }
@@ -42,7 +42,7 @@ function getComputerChoice() {
   let roll = Math.floor(Math.random() * 3);
 
   // Select choice from array index based on roll
-  return computerChoice = choices[roll];
+  return computerChoice = CHOICES[roll];
 }
 
 // Simulate a round
