@@ -13,13 +13,9 @@ function game() {
 
   // Loop over rounds while user and computer score are below the max score
   for (let i = 0; userScore < MAX_SCORE && computerScore < MAX_SCORE; i++) {
-    // Obtain user input and account for case sensitivity
-    let playerSelection = prompt(
-      `Select 'Rock' 'Paper' or Scissors`
-    ).toLowerCase();
-
-    // Obtain the round outcome
+    let playerSelection = getUserChoice();
     let computerSelection = getComputerChoice();
+
     roundOutcome = playRound(playerSelection, computerSelection);
 
     // Tally and increment the round winner
@@ -27,7 +23,6 @@ function game() {
       roundOutcome === "You Win" ? userScore++ : computerScore++;
     }
 
-    // Log the round outcome
     console.log(roundOutcome);
   }
   // Declare the winner depending on who reached it first
@@ -38,11 +33,23 @@ function game() {
 
 // Obtain computer's choice
 function getComputerChoice() {
-  // Randomly roll a number between 0-2
   let roll = Math.floor(Math.random() * 3);
 
-  // Select choice from array index based on roll
-  return computerChoice = CHOICES[roll];
+  return (computerChoice = CHOICES[roll]);
+}
+
+// Obtain user's choice
+function getUserChoice() {
+  while (true) {
+    let playerSelection = prompt(
+      `Select 'Rock' 'Paper' or 'Scissors'`
+    ).toLowerCase();
+
+    // Ensure it's a valid choice
+    if (CHOICES.includes(playerSelection)) {
+      return playerSelection;
+    }
+  }
 }
 
 // Simulate a round
