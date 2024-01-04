@@ -6,6 +6,7 @@ const MAX_SCORE = 5;
 let userScore = 0;
 let computerScore = 0;
 
+// DOM methods
 const buttons = document.querySelectorAll("button");
 const container = document.querySelector("#container");
 
@@ -27,13 +28,18 @@ function game() {
 
       let roundOutcome = playRound(userSelection, computerSelection);
 
-      // Tally and increment the round winner
-      if (!roundOutcome.includes(`Draw`)) {
-        roundOutcome.includes(`Win`) ? userScore++ : computerScore++;
+      if (roundOutcome === "win") {
+        roundOutcome = `You Win! ${userSelection} beats ${computerSelection}.`;
+        userScore++;
+      } else if (roundOutcome === "lose") {
+        roundOutcome = `You Lose! ${computerSelection} beats ${userSelection}.`;
+        computerScore++;
+      } else {
+        roundOutcome = `Draw! You both have chosen ${userSelection}.`;
       }
 
-      scores.textContent = `User score: ${userScore}, Computer score: ${computerScore}`;
       results.textContent = roundOutcome;
+      scores.textContent = `User score: ${userScore}, Computer score: ${computerScore}`;
 
       // Prevent game from proceeding
       if (userScore === MAX_SCORE || computerScore === MAX_SCORE) {
@@ -57,24 +63,15 @@ function getComputerChoice() {
 function playRound(userSelection, computerSelection) {
   // If its the same selection, return a draw
   if (userSelection === computerSelection) {
-    return `Draw! You both have chosen ${userSelection}.`;
+    return "draw";
   }
 
   // Account for possible scenarios
   if (userSelection === "rock") {
-    return (result =
-      computerSelection === "paper"
-        ? `You Lose! ${computerSelection} beats ${userSelection}.`
-        : `You Win! ${userSelection} beats ${computerSelection}.`);
+    return (result = computerSelection === "paper" ? "lose" : "win");
   } else if (userSelection === "paper") {
-    return (result =
-      computerSelection === "scissors"
-        ? `You Lose! ${computerSelection} beats ${userSelection}.`
-        : `You Win! ${userSelection} beats ${computerSelection}.`);
+    return (result = computerSelection === "scissors" ? "lose" : "win");
   } else {
-    return (result =
-      computerSelection === "rock"
-        ? `You Lose! ${computerSelection} beats ${userSelection}.`
-        : `You Win! ${userSelection} beats ${computerSelection}.`);
+    return (result = computerSelection === "rock" ? "lose" : "win");
   }
 }
